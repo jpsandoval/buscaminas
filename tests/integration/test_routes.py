@@ -1,5 +1,7 @@
 from app import create_app
-from app.domain import DEFAULT_DIFFICULTY
+from app.domain import Difficulty
+
+DEFAULT_DIFFICULTY = Difficulty.default()
 
 
 def make_client():

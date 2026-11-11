@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .domain import DEFAULT_DIFFICULTY, Difficulty, find_difficulty_by_id
+from .domain import Difficulty
 
 
 @dataclass
@@ -15,7 +15,7 @@ def read_game_url_params(args) -> GameUrlParams:
     """Reads `difficulty=` and `seed=` query params so a game can be shared or
     reproduced deterministically (also used to drive deterministic e2e tests)."""
     difficulty_id = args.get("difficulty")
-    difficulty = (difficulty_id and find_difficulty_by_id(difficulty_id)) or DEFAULT_DIFFICULTY
+    difficulty = (difficulty_id and Difficulty.find_by_id(difficulty_id)) or Difficulty.default()
 
     seed_param = args.get("seed")
     seed: int | None

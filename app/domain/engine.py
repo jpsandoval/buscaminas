@@ -2,8 +2,7 @@ from __future__ import annotations
 
 import random as _random_module
 
-from .board import create_empty_board, place_mines
-from .gameplay import count_flags, has_won, reveal_all_mines, reveal_cell, toggle_flag
+from .board import Board
 from .types import Difficulty, GameStatus, MinesweeperState, Position, RandomSource
 
 
@@ -15,12 +14,12 @@ class MinesweeperEngine:
     def __init__(self, difficulty: Difficulty, random: RandomSource = _random_module.random):
         self._difficulty = difficulty
         self._random = random
-        self._board = create_empty_board(difficulty.rows, difficulty.cols)
+        self._board = Board(difficulty.rows, difficulty.cols)
         self._status: GameStatus = "ready"
         self._mines_placed = False
 
     def get_state(self) -> MinesweeperState:
-        flags_placed = count_flags(self._board)
+        flags_placed = self._board.count_flags()
         return MinesweeperState(
             board=self._board,
             status=self._status,
@@ -30,21 +29,21 @@ class MinesweeperEngine:
         )
 
     def reveal(self, position: Position) -> MinesweeperState:
-        if self._is_finished() or self._board[position.row][position.col].state == "flagged":
+        if self._is_finished() or self._board[position.row][position.col].is_flagged:
             return self.get_state()
 
         if not self._mines_placed:
-            self._board = place_mines(self._board, self._difficulty.mines, position, self._random)
+            self._board = self._board.place_mines(self._difficulty.mines, position, self._random)
             self._mines_placed = True
             self._status = "playing"
 
-        outcome = reveal_cell(self._board, position)
+        outcome = self._board.reveal(position)
         self._board = outcome.board
 
         if outcome.hit_mine:
-            self._board = reveal_all_mines(self._board)
+            self._board = self._board.reveal_all_mines()
             self._status = "lost"
-        elif has_won(self._board):
+        elif self._board.has_won():
             self._status = "won"
 
         return self.get_state()
@@ -53,7 +52,7 @@ class MinesweeperEngine:
         if self._is_finished():
             return self.get_state()
 
-        self._board = toggle_flag(self._board, position)
+        self._board = self._board.toggle_flag(position)
         return self.get_state()
 
     def _is_finished(self) -> bool:
