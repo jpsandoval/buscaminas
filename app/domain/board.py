@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 from .types import Cell, Position, RandomSource
 
-
+# comment
 @dataclass
 class RevealOutcome:
     board: Board
