@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buscaminas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="page">
+      <h1 class="title">Buscaminas</h1>
+
+      <div class="selector" role="radiogroup" aria-label="Dificultad">
+        {% for difficulty in difficulties %}
+        <button
+          type="button"
+          role="radio"
+          class="option"
+          data-difficulty-id="{{ difficulty.id }}"
+          data-testid="difficulty-{{ difficulty.id }}"
+        >
+          {{ difficulty.label }}
+        </button>
+        {% endfor %}
+      </div>
+
+      <div class="header">
+        <span class="counter" data-testid="mines-remaining" aria-label="Minas restantes">000</span>
+        <button
+          type="button"
+          class="reset-button"
+          aria-label="Reiniciar juego"
+          data-testid="reset-button"
+        >
+          🙂
+        </button>
+        <span class="counter" data-testid="elapsed-seconds" aria-label="Tiempo transcurrido">000</span>
+      </div>
+
+      <p class="status" data-testid="game-status" role="status"></p>
+
+      <div class="board" data-testid="board" role="grid"></div>
+    </main>
+
+    <script id="initial-state" type="application/json">{{ initial_state | tojson }}</script>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+  </body>
+</html>
