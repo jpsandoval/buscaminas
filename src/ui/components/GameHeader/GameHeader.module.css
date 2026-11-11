@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: fit-content;
+  margin: 0 auto 1rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--panel-bg);
+  border-radius: 4px;
+}
+
+.counter {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--counter-text);
+  background-color: var(--counter-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  min-width: 3ch;
+  text-align: center;
+}
+
+.resetButton {
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--reset-button-bg);
+  cursor: pointer;
+}
+
+.resetButton:hover {
+  background-color: var(--reset-button-hover-bg);
+}
