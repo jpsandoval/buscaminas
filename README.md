@@ -1,6 +1,6 @@
 # Buscaminas
 
-Buscaminas (Minesweeper) jugable en el navegador, construido con Python, Flask y JavaScript - Karen Palma Fuenzalida.
+Buscaminas (Minesweeper) jugable en el navegador, construido con Python, Flask y JavaScript - Karen Monica Palma Fuenzalida.
 
 ## Arquitectura
 
