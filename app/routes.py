@@ -28,22 +28,24 @@ def index():
 
 @bp.post("/api/reveal")
 def reveal():
-    engine = get_game(session.get("game_id"))
-    if engine is None:
-        return jsonify({"error": "no_active_game"}), 404
-
+    engine = _active_engine()
     payload = request.get_json(silent=True) or {}
     position = Position(row=int(payload["row"]), col=int(payload["col"]))
     state = engine.reveal(position)
     return jsonify(serialize_state(state))
 
 
+def _active_engine():
+    return get_game(session.get("game_id"))
+
+
+def _position_from_payload():
+    payload = request.get_json(silent=True) or {}
+    return Position(row=int(payload["row"]), col=int(payload["col"]))
+
 @bp.post("/api/flag")
 def flag():
-    engine = get_game(session.get("game_id"))
-    if engine is None:
-        return jsonify({"error": "no_active_game"}), 404
-
+    engine = _active_engine()
     payload = request.get_json(silent=True) or {}
     position = Position(row=int(payload["row"]), col=int(payload["col"]))
     state = engine.toggle_flag(position)
