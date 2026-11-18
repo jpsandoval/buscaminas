@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: buscaminas
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # Un solo worker: el estado de cada partida vive en memoria por proceso
+    # (ver app/game_store.py), así que con más de 1 worker algunos requests
+    # caerían en un worker que no conoce el game_id de la sesión.
+    startCommand: gunicorn -w 1 -b 0.0.0.0:$PORT main:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
