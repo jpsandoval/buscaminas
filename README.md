@@ -58,9 +58,42 @@ pytest                    # Unitarios (dominio) + integración (rutas Flask)
 pytest e2e                # End-to-end en navegador real — Playwright
 ```
 
+Para mostrar los tests e2e en clase, con el navegador visible y en cámara lenta:
+
+```bash
+pytest e2e --headed --slowmo 500 -s
+```
+
 - **Unitarios** (`tests/unit`): funciones puras del dominio (colocación de minas,
   flood fill, condición de victoria, motor del juego), sin Flask.
 - **Integración** (`tests/integration`): las rutas Flask ejercitadas con el test
   client, verificando sesión, serialización y transiciones de estado completas.
 - **End-to-end** (`e2e/`): flujo completo en un navegador real con Playwright,
   incluyendo escenarios determinísticos de "ganar" y "perder" gracias al seed del PRNG.
+
+## Performance testing
+
+Test de carga con [Locust](https://locust.io) (`perf/locustfile.py`), simulando
+usuarios que abren una partida y hacen `reveal`/`flag`/`reset` contra la API.
+
+```bash
+pip install -r perf/requirements.txt
+
+# gunicorn con 1 solo worker: el estado de las partidas vive en un dict en
+# memoria por proceso, así que con más de 1 worker algunos requests caerían
+# en un worker que no conoce el game_id de la sesión
+gunicorn -w 1 -b 127.0.0.1:5173 "main:app"
+```
+
+En otra terminal, modo interactivo con UI web (`http://localhost:8089`):
+
+```bash
+locust -f perf/locustfile.py --host http://127.0.0.1:5173
+```
+
+O headless con reporte HTML (ej. 100 usuarios, 2 minutos):
+
+```bash
+locust -f perf/locustfile.py --host http://127.0.0.1:5173 \
+  --headless -u 100 -r 10 -t 2m --html perf/report.html
+```
