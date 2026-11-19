@@ -70,7 +70,7 @@ class Board:
         """Places mines on a copy of this board, keeping `safe_position` and its
         neighbors mine-free so the player's first click always opens a safe area."""
         candidates = self._find_mine_candidates(safe_position, mine_count)
-
+        # comentario 
         mine_positions = {
             _to_key(position)
             for position in self._shuffle(candidates, random)[: min(mine_count, len(candidates))]
