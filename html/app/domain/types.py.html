@@ -1,0 +1,364 @@
+<html><body><h1>app/domain/types.py</h1>Killed 24 out of 57 mutants<h2>Timeouts</h2>Mutants that made the test suite take a lot longer so the tests were killed.<h3>Mutant 106</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -24,7 +24,6 @@
+     adjacent_mines: int = 0
+     state: CellState = "hidden"
+ 
+-    @property
+     def is_hidden(self) -> bool:
+         return self.state == "hidden"
+ 
+</pre><h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 87</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -6,7 +6,7 @@
+ if TYPE_CHECKING:
+     from .board import Board
+ 
+-CellState = Literal["hidden", "revealed", "flagged"]
++CellState = Literal["XXhiddenXX", "revealed", "flagged"]
+ GameStatus = Literal["ready", "playing", "won", "lost"]
+ 
+ RandomSource = Callable[[], float]
+</pre><h3>Mutant 88</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -6,7 +6,7 @@
+ if TYPE_CHECKING:
+     from .board import Board
+ 
+-CellState = Literal["hidden", "revealed", "flagged"]
++CellState = Literal["hidden", "XXrevealedXX", "flagged"]
+ GameStatus = Literal["ready", "playing", "won", "lost"]
+ 
+ RandomSource = Callable[[], float]
+</pre><h3>Mutant 89</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -6,7 +6,7 @@
+ if TYPE_CHECKING:
+     from .board import Board
+ 
+-CellState = Literal["hidden", "revealed", "flagged"]
++CellState = Literal["hidden", "revealed", "XXflaggedXX"]
+ GameStatus = Literal["ready", "playing", "won", "lost"]
+ 
+ RandomSource = Callable[[], float]
+</pre><h3>Mutant 90</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -6,7 +6,7 @@
+ if TYPE_CHECKING:
+     from .board import Board
+ 
+-CellState = Literal["hidden", "revealed", "flagged"]
++CellState = None
+ GameStatus = Literal["ready", "playing", "won", "lost"]
+ 
+ RandomSource = Callable[[], float]
+</pre><h3>Mutant 91</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -7,7 +7,7 @@
+     from .board import Board
+ 
+ CellState = Literal["hidden", "revealed", "flagged"]
+-GameStatus = Literal["ready", "playing", "won", "lost"]
++GameStatus = Literal["XXreadyXX", "playing", "won", "lost"]
+ 
+ RandomSource = Callable[[], float]
+ 
+</pre><h3>Mutant 92</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -7,7 +7,7 @@
+     from .board import Board
+ 
+ CellState = Literal["hidden", "revealed", "flagged"]
+-GameStatus = Literal["ready", "playing", "won", "lost"]
++GameStatus = Literal["ready", "XXplayingXX", "won", "lost"]
+ 
+ RandomSource = Callable[[], float]
+ 
+</pre><h3>Mutant 93</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -7,7 +7,7 @@
+     from .board import Board
+ 
+ CellState = Literal["hidden", "revealed", "flagged"]
+-GameStatus = Literal["ready", "playing", "won", "lost"]
++GameStatus = Literal["ready", "playing", "XXwonXX", "lost"]
+ 
+ RandomSource = Callable[[], float]
+ 
+</pre><h3>Mutant 94</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -7,7 +7,7 @@
+     from .board import Board
+ 
+ CellState = Literal["hidden", "revealed", "flagged"]
+-GameStatus = Literal["ready", "playing", "won", "lost"]
++GameStatus = Literal["ready", "playing", "won", "XXlostXX"]
+ 
+ RandomSource = Callable[[], float]
+ 
+</pre><h3>Mutant 95</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -7,7 +7,7 @@
+     from .board import Board
+ 
+ CellState = Literal["hidden", "revealed", "flagged"]
+-GameStatus = Literal["ready", "playing", "won", "lost"]
++GameStatus = None
+ 
+ RandomSource = Callable[[], float]
+ 
+</pre><h3>Mutant 96</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -9,7 +9,7 @@
+ CellState = Literal["hidden", "revealed", "flagged"]
+ GameStatus = Literal["ready", "playing", "won", "lost"]
+ 
+-RandomSource = Callable[[], float]
++RandomSource = None
+ 
+ 
+ @dataclass(frozen=True)
+</pre><h3>Mutant 120</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -45,7 +45,7 @@
+         self.state = "hidden" if self.is_flagged else "flagged"
+ 
+ 
+-@dataclass(frozen=True)
++@dataclass(frozen=False)
+ class Difficulty:
+     id: str
+     label: str
+</pre><h3>Mutant 122</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -53,7 +53,6 @@
+     cols: int
+     mines: int
+ 
+-    @classmethod
+     def all(cls) -> tuple[Difficulty, ...]:
+         return _DIFFICULTIES
+ 
+</pre><h3>Mutant 123</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -57,7 +57,6 @@
+     def all(cls) -> tuple[Difficulty, ...]:
+         return _DIFFICULTIES
+ 
+-    @classmethod
+     def default(cls) -> Difficulty:
+         return _DIFFICULTIES[0]
+ 
+</pre><h3>Mutant 124</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -59,7 +59,7 @@
+ 
+     @classmethod
+     def default(cls) -> Difficulty:
+-        return _DIFFICULTIES[0]
++        return _DIFFICULTIES[1]
+ 
+     @classmethod
+     def find_by_id(cls, difficulty_id: str) -> Difficulty | None:
+</pre><h3>Mutant 125</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -61,7 +61,6 @@
+     def default(cls) -> Difficulty:
+         return _DIFFICULTIES[0]
+ 
+-    @classmethod
+     def find_by_id(cls, difficulty_id: str) -> Difficulty | None:
+         for difficulty in _DIFFICULTIES:
+             if difficulty.id == difficulty_id:
+</pre><h3>Mutant 126</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -64,7 +64,7 @@
+     @classmethod
+     def find_by_id(cls, difficulty_id: str) -> Difficulty | None:
+         for difficulty in _DIFFICULTIES:
+-            if difficulty.id == difficulty_id:
++            if difficulty.id != difficulty_id:
+                 return difficulty
+         return None
+ 
+</pre><h3>Mutant 127</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -70,7 +70,7 @@
+ 
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+-    Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
++    Difficulty(id="XXbeginnerXX", label="Principiante", rows=9, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+</pre><h3>Mutant 128</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -70,7 +70,7 @@
+ 
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+-    Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
++    Difficulty(id="beginner", label="XXPrincipianteXX", rows=9, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+</pre><h3>Mutant 129</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -70,7 +70,7 @@
+ 
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+-    Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
++    Difficulty(id="beginner", label="Principiante", rows=10, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+</pre><h3>Mutant 130</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -70,7 +70,7 @@
+ 
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+-    Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
++    Difficulty(id="beginner", label="Principiante", rows=9, cols=10, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+</pre><h3>Mutant 131</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -70,7 +70,7 @@
+ 
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+-    Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
++    Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=11),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+</pre><h3>Mutant 132</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -71,7 +71,7 @@
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+-    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
++    Difficulty(id="XXintermediateXX", label="Intermedio", rows=16, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+ 
+</pre><h3>Mutant 133</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -71,7 +71,7 @@
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+-    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
++    Difficulty(id="intermediate", label="XXIntermedioXX", rows=16, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+ 
+</pre><h3>Mutant 134</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -71,7 +71,7 @@
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+-    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
++    Difficulty(id="intermediate", label="Intermedio", rows=17, cols=16, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+ 
+</pre><h3>Mutant 135</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -71,7 +71,7 @@
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+-    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
++    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=17, mines=40),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+ 
+</pre><h3>Mutant 136</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -71,7 +71,7 @@
+ 
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+-    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
++    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=41),
+     Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+ )
+ 
+</pre><h3>Mutant 137</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -72,7 +72,7 @@
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+-    Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
++    Difficulty(id="XXexpertXX", label="Experto", rows=16, cols=30, mines=99),
+ )
+ 
+ 
+</pre><h3>Mutant 138</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -72,7 +72,7 @@
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+-    Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
++    Difficulty(id="expert", label="XXExpertoXX", rows=16, cols=30, mines=99),
+ )
+ 
+ 
+</pre><h3>Mutant 139</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -72,7 +72,7 @@
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+-    Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
++    Difficulty(id="expert", label="Experto", rows=17, cols=30, mines=99),
+ )
+ 
+ 
+</pre><h3>Mutant 140</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -72,7 +72,7 @@
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+-    Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
++    Difficulty(id="expert", label="Experto", rows=16, cols=31, mines=99),
+ )
+ 
+ 
+</pre><h3>Mutant 141</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -72,7 +72,7 @@
+ _DIFFICULTIES: tuple[Difficulty, ...] = (
+     Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+     Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+-    Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
++    Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=100),
+ )
+ 
+ 
+</pre><h3>Mutant 142</h3><pre>--- app/domain/types.py
++++ app/domain/types.py
+@@ -69,11 +69,7 @@
+         return None
+ 
+ 
+-_DIFFICULTIES: tuple[Difficulty, ...] = (
+-    Difficulty(id="beginner", label="Principiante", rows=9, cols=9, mines=10),
+-    Difficulty(id="intermediate", label="Intermedio", rows=16, cols=16, mines=40),
+-    Difficulty(id="expert", label="Experto", rows=16, cols=30, mines=99),
+-)
++_DIFFICULTIES: tuple[Difficulty, ...] = None
+ 
+ 
+ @dataclass
+</pre></body></html>

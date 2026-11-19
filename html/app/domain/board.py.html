@@ -1,0 +1,140 @@
+<html><body><h1>app/domain/board.py</h1>Killed 73 out of 86 mutants<h2>Timeouts</h2>Mutants that made the test suite take a lot longer so the tests were killed.<h3>Mutant 63</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -149,7 +149,7 @@
+             position = pending.pop()
+ 
+             cell = self[position.row][position.col]
+-            if not cell.is_hidden or cell.has_mine:
++            if not cell.is_hidden and cell.has_mine:
+                 continue
+ 
+             cell.reveal()
+</pre><h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 6</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -22,7 +22,6 @@
+         self._cols = cols
+         self._grid = grid if grid is not None else [[Cell() for _ in range(cols)] for _ in range(rows)]
+ 
+-    @property
+     def rows(self) -> int:
+         return self._rows
+ 
+</pre><h3>Mutant 7</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -26,7 +26,6 @@
+     def rows(self) -> int:
+         return self._rows
+ 
+-    @property
+     def cols(self) -> int:
+         return self._cols
+ 
+</pre><h3>Mutant 9</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -40,7 +40,7 @@
+         return self._rows
+ 
+     def __eq__(self, other: object) -> bool:
+-        return isinstance(other, Board) and self._grid == other._grid
++        return isinstance(other, Board) or self._grid == other._grid
+ 
+     def clone(self) -> Board:
+         return Board(self._rows, self._cols, copy.deepcopy(self._grid))
+</pre><h3>Mutant 10</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -43,7 +43,7 @@
+         return isinstance(other, Board) and self._grid == other._grid
+ 
+     def clone(self) -> Board:
+-        return Board(self._rows, self._cols, copy.deepcopy(self._grid))
++        return Board(self._rows, self._cols, copy.copy(self._grid))
+ 
+     def neighbors(self, position: Position) -> list[Position]:
+         neighbors: list[Position] = []
+</pre><h3>Mutant 26</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -53,7 +53,7 @@
+                 if delta_row == 0 and delta_col == 0:
+                     continue
+ 
+-                row = position.row + delta_row
++                row = position.row - delta_row
+                 col = position.col + delta_col
+ 
+                 if 0 <= row < self._rows and 0 <= col < self._cols:
+</pre><h3>Mutant 28</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -54,7 +54,7 @@
+                     continue
+ 
+                 row = position.row + delta_row
+-                col = position.col + delta_col
++                col = position.col - delta_col
+ 
+                 if 0 <= row < self._rows and 0 <= col < self._cols:
+                     neighbors.append(Position(row, col))
+</pre><h3>Mutant 49</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -106,7 +106,7 @@
+         cell = self[position.row][position.col]
+ 
+         if not cell.is_hidden:
+-            return RevealOutcome(board=self, hit_mine=False)
++            return RevealOutcome(board=self, hit_mine=True)
+ 
+         next_board = self.clone()
+         target = next_board[position.row][position.col]
+</pre><h3>Mutant 77</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -185,7 +185,7 @@
+     def _shuffle(items: list[Position], random: RandomSource) -> list[Position]:
+         result = list(items)
+ 
+-        for i in range(len(result) - 1, 0, -1):
++        for i in range(len(result) - 2, 0, -1):
+             j = int(random() * (i + 1))
+             result[i], result[j] = result[j], result[i]
+ 
+</pre><h3>Mutant 81</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -186,7 +186,7 @@
+         result = list(items)
+ 
+         for i in range(len(result) - 1, 0, -1):
+-            j = int(random() * (i + 1))
++            j = int(random() / (i + 1))
+             result[i], result[j] = result[j], result[i]
+ 
+         return result
+</pre><h3>Mutant 82</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -186,7 +186,7 @@
+         result = list(items)
+ 
+         for i in range(len(result) - 1, 0, -1):
+-            j = int(random() * (i + 1))
++            j = int(random() * (i - 1))
+             result[i], result[j] = result[j], result[i]
+ 
+         return result
+</pre><h3>Mutant 83</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -186,7 +186,7 @@
+         result = list(items)
+ 
+         for i in range(len(result) - 1, 0, -1):
+-            j = int(random() * (i + 1))
++            j = int(random() * (i + 2))
+             result[i], result[j] = result[j], result[i]
+ 
+         return result
+</pre><h3>Mutant 86</h3><pre>--- app/domain/board.py
++++ app/domain/board.py
+@@ -193,5 +193,5 @@
+ 
+ 
+ def _to_key(position: Position) -> str:
+-    return f"{position.row}:{position.col}"
++    return f"XX{position.row}:{position.col}XX"
+ 
+</pre></body></html>

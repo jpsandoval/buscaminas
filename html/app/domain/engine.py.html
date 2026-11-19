@@ -1,0 +1,30 @@
+<html><body><h1>app/domain/engine.py</h1>Killed 24 out of 27 mutants<h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 150</h3><pre>--- app/domain/engine.py
++++ app/domain/engine.py
+@@ -16,7 +16,7 @@
+         self._random = random
+         self._board = Board(difficulty.rows, difficulty.cols)
+         self._status: GameStatus = "ready"
+-        self._mines_placed = False
++        self._mines_placed = None
+ 
+     def get_state(self) -> MinesweeperState:
+         flags_placed = self._board.count_flags()
+</pre><h3>Mutant 169</h3><pre>--- app/domain/engine.py
++++ app/domain/engine.py
+@@ -56,5 +56,5 @@
+         return self.get_state()
+ 
+     def _is_finished(self) -> bool:
+-        return self._status in ("won", "lost")
++        return self._status in ("XXwonXX", "lost")
+ 
+</pre><h3>Mutant 170</h3><pre>--- app/domain/engine.py
++++ app/domain/engine.py
+@@ -56,5 +56,5 @@
+         return self.get_state()
+ 
+     def _is_finished(self) -> bool:
+-        return self._status in ("won", "lost")
++        return self._status in ("won", "XXlostXX")
+ 
+</pre></body></html>

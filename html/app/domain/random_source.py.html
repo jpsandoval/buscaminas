@@ -1,0 +1,232 @@
+<html><body><h1>app/domain/random_source.py</h1>Killed 17 out of 38 mutants<h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 175</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -11,7 +11,7 @@
+         self._state = seed & _MASK32
+ 
+     def __call__(self) -> float:
+-        self._state = (self._state + 0x6D2B79F5) & _MASK32
++        self._state = (self._state - 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+</pre><h3>Mutant 176</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -11,7 +11,7 @@
+         self._state = seed & _MASK32
+ 
+     def __call__(self) -> float:
+-        self._state = (self._state + 0x6D2B79F5) & _MASK32
++        self._state = (self._state + 1831565814) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+</pre><h3>Mutant 180</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -13,7 +13,7 @@
+     def __call__(self) -> float:
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+-        result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
++        result = self._imul(s & (s >> 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+</pre><h3>Mutant 181</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -13,7 +13,7 @@
+     def __call__(self) -> float:
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+-        result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
++        result = self._imul(s ^ (s << 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+</pre><h3>Mutant 182</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -13,7 +13,7 @@
+     def __call__(self) -> float:
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+-        result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
++        result = self._imul(s ^ (s >> 16), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+</pre><h3>Mutant 183</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -13,7 +13,7 @@
+     def __call__(self) -> float:
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+-        result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
++        result = self._imul(s ^ (s >> 15), (2 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+</pre><h3>Mutant 184</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -13,7 +13,7 @@
+     def __call__(self) -> float:
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+-        result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
++        result = self._imul(s ^ (s >> 15), (1 & s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+</pre><h3>Mutant 185</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -13,7 +13,7 @@
+     def __call__(self) -> float:
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+-        result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
++        result = self._imul(s ^ (s >> 15), (1 | s) | _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+</pre><h3>Mutant 187</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result - self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 188</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result + self._imul(result & (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 189</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result + self._imul(result ^ (result << 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 190</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result + self._imul(result ^ (result >> 8), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 191</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result + self._imul(result ^ (result >> 7), (62 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 192</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result + self._imul(result ^ (result >> 7), (61 & result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 193</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result + self._imul(result ^ (result >> 7), (61 | result) | _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 194</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -14,7 +14,7 @@
+         self._state = (self._state + 0x6D2B79F5) & _MASK32
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+-        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
++        combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) | _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+</pre><h3>Mutant 196</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -15,7 +15,7 @@
+         s = self._state
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+-        result = (combined ^ result) & _MASK32
++        result = (combined & result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+         return final / 4294967296
+ 
+</pre><h3>Mutant 199</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -16,7 +16,7 @@
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+-        final = (result ^ (result >> 14)) & _MASK32
++        final = (result & (result >> 14)) & _MASK32
+         return final / 4294967296
+ 
+     @staticmethod
+</pre><h3>Mutant 200</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -16,7 +16,7 @@
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+-        final = (result ^ (result >> 14)) & _MASK32
++        final = (result ^ (result << 14)) & _MASK32
+         return final / 4294967296
+ 
+     @staticmethod
+</pre><h3>Mutant 201</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -16,7 +16,7 @@
+         result = self._imul(s ^ (s >> 15), (1 | s) & _MASK32)
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+-        final = (result ^ (result >> 14)) & _MASK32
++        final = (result ^ (result >> 15)) & _MASK32
+         return final / 4294967296
+ 
+     @staticmethod
+</pre><h3>Mutant 205</h3><pre>--- app/domain/random_source.py
++++ app/domain/random_source.py
+@@ -17,7 +17,7 @@
+         combined = (result + self._imul(result ^ (result >> 7), (61 | result) & _MASK32)) & _MASK32
+         result = (combined ^ result) & _MASK32
+         final = (result ^ (result >> 14)) & _MASK32
+-        return final / 4294967296
++        return final / 4294967297
+ 
+     @staticmethod
+     def _imul(a: int, b: int) -> int:
+</pre></body></html>

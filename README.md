@@ -1,5 +1,9 @@
 # Buscaminas
 
+[![Tests](https://github.com/jpsandoval/buscaminas/actions/workflows/tests.yml/badge.svg)](https://github.com/jpsandoval/buscaminas/actions/workflows/tests.yml)
+![Coverage](./badges/coverage.svg)
+![Mutation score](./badges/mutation.svg)
+
 Buscaminas (Minesweeper) jugable en el navegador, construido con Python, Flask y JavaScript.
 
 ## Arquitectura
@@ -68,8 +72,37 @@ pytest e2e --headed --slowmo 500 -s
   flood fill, condición de victoria, motor del juego), sin Flask.
 - **Integración** (`tests/integration`): las rutas Flask ejercitadas con el test
   client, verificando sesión, serialización y transiciones de estado completas.
+  Un archivo por grupo de endpoint (`test_index_route.py`, `test_reveal_route.py`,
+  `test_flag_route.py`, `test_reset_route.py`) más `test_game_outcomes.py` para
+  las partidas completas (ganar/perder), y un `conftest.py` con la fixture
+  `client` compartida.
 - **End-to-end** (`e2e/`): flujo completo en un navegador real con Playwright,
   incluyendo escenarios determinísticos de "ganar" y "perder" gracias al seed del PRNG.
+
+### Coverage y mutation score
+
+Los dos badges de arriba se recalculan en cada push a `main` (ver
+`.github/workflows/tests.yml`):
+
+- **Coverage**: `pytest --cov=app --cov-report=xml`, sobre todo `app/` (tests
+  unitarios + de integración).
+- **Mutation score**: [`mutmut`](https://mutmut.readthedocs.io) corriendo
+  solo sobre `app/domain` (la lógica pura del juego — ver `setup.cfg`), con
+  los tests unitarios (`tests/unit`) como oráculo. Mide qué porcentaje de
+  cambios artificiales al código ("mutantes") hacen fallar algún test; un
+  número bajo indica que hay comportamiento sin cubrir aunque el coverage de
+  líneas sea alto.
+
+Para correrlo localmente:
+
+```bash
+pytest --cov=app --cov-report=xml --cov-report=term
+mutmut run
+mutmut results   # lista los mutantes sobrevivientes, con su archivo y línea
+```
+
+El mutation score es una métrica informativa: un mutante sobreviviente no
+rompe el build, es una invitación a escribir un test que lo mate.
 
 ## Performance testing
 

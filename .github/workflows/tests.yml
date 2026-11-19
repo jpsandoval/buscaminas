@@ -7,6 +7,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout código
@@ -18,7 +20,28 @@ jobs:
           python-version: "3.12"
 
       - name: Instalar dependencias
-        run: pip install flask pytest
+        run: pip install -r requirements.txt
 
-      - name: Correr tests unitarios e integración
-        run: pytest
+      - name: Correr tests unitarios e integración con cobertura
+        run: pytest --cov=app --cov-report=xml --cov-report=term
+
+      # Mutation testing solo sobre app/domain (la lógica pura del juego, ver
+      # setup.cfg). No bloquea el job si quedan mutantes sobrevivientes: es
+      # una métrica informativa, no un gate de éxito/fracaso del workflow.
+      - name: Correr mutation testing (mutmut) sobre app/domain
+        run: mutmut run --simple-output --no-progress --CI || true
+
+      - name: Exportar resultados de mutmut a JUnit
+        run: mutmut junitxml > mutmut.xml
+
+      - name: Generar badges de cobertura y mutation score
+        run: python scripts/generate_badges.py
+
+      - name: Commitear badges actualizados
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add badges/coverage.svg badges/mutation.svg
+          git diff --staged --quiet || git commit -m "chore: actualizar badges de coverage y mutation score [skip ci]"
+          git push
