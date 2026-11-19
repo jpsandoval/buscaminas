@@ -92,11 +92,21 @@ class Board:
                 if cell.has_mine:
                     continue
 
-                cell.adjacent_mines = sum(
-                    1
-                    for neighbor in next_board.neighbors(Position(row, col))
-                    if next_board[neighbor.row][neighbor.col].has_mine
-                )
+                mine_count = 0
+                for delta_row in (-1, 0, 1):
+                    for delta_col in (-1, 0, 1):
+                        if delta_row == 0 and delta_col == 0:
+                            continue
+
+                        neighbor_row = (row + delta_row) % next_board._rows
+                        neighbor_col = (col + delta_col) % next_board._cols
+
+
+                         
+                        if next_board[neighbor_row][neighbor_col].has_mine:
+                            mine_count += 1
+
+                cell.adjacent_mines = mine_count
 
         return next_board
 

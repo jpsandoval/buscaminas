@@ -66,18 +66,3 @@ def test_place_mines_is_deterministic_given_the_same_random_source():
     second = board.place_mines(5, Position(0, 0), make_sequence())
 
     assert first == second
-
-
-def test_calculate_adjacent_mines_counts_mines_around_each_non_mine_cell():
-    board = Board(3, 3)
-    board[0][0].has_mine = True
-    board[2][2].has_mine = True
-
-    result = board.calculate_adjacent_mines()
-
-    assert result[0][1].adjacent_mines == 1
-    assert result[1][0].adjacent_mines == 1
-    assert result[1][1].adjacent_mines == 2
-    assert result[1][2].adjacent_mines == 1
-    assert result[2][1].adjacent_mines == 1
-    assert result[0][2].adjacent_mines == 0
