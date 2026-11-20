@@ -98,8 +98,13 @@ class Board:
                         if delta_row == 0 and delta_col == 0:
                             continue
 
-                        neighbor_row = (row + delta_row) % next_board._rows
-                        neighbor_col = (col + delta_col) % next_board._cols
+                        neighbor_row =  row + delta_row
+                        neighbor_col =  col + delta_col
+
+                        if not (0 <= neighbor_row < next_board._rows
+                            and 0 <= neighbor_col < next_board._cols):
+                            continue
+
 
 
                          
